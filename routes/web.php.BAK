@@ -1,0 +1,87 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| TODO: 
+|       - add delete,patch Routes for Products
+| 
+| 
+|
+*/
+
+/*Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('users/{id}/{name}', function ($id, $name) {
+    return 'This is user ' . $name . ' with an id of: ' . $id;
+});
+
+Route::get('/hello', function () {
+    return '<b>Hello World My Name is Andrew Shal</b>';
+});
+*/
+
+Route::get('/', 'PagesController@index');
+Route::get('/about', 'PagesController@about');
+Route::get('/services', 'PagesController@services');
+Route::resource('posts', 'PostController');
+Route::get('/dashboard', 'DashboardController@index');
+
+
+/**
+ *===================================================
+ *===================================================
+ *===           Routes needed for Demo 1          ===
+ *===================================================
+ *===================================================
+ *===   Products   
+ *===   User
+ *===   Cart
+ *===   Checkout
+ *===   My Orders
+ *===================================================
+ *===================================================
+ * */
+
+
+/*
+ *--------------------
+ *  Product Routes 
+ *--------------------
+ */
+Route::post('/products', 'ProductController@store');
+Route::get('/products', 'ProductController@index');
+Route::get('/products/create', 'ProductController@create');
+Route::get('/products/{id}/{name}', 'ProductController@show');
+
+/*
+ *--------------------
+ *  Product Routes 
+ *--------------------
+ */
+Route::get('/cart', 'CartController@index');
+Route::post('/cart/{product}', 'CartController@store');
+Route::patch('/cart/{product}', 'CartController@update');
+Route::delete('/cart/{product}', 'CartController@destroy');
+Route::post('/cart/switchToSaveForLater/{product}', 'CartController@switchToSaveForLater');
+
+Route::get('/checkout', 'CheckoutController@store');
+Route::post('/checkout', 'CheckoutController@store');
+Route::post('/paypal-checkout', 'CheckoutController@store');
+
+/*
+ *--------------------
+ *  Auth Route
+ *
+ *  used to enable laravel
+ *  authentication feature
+ * 
+ *  @params array[] verify is set to true
+ *  for email verification  
+ *--------------------
+ */
+Auth::routes(['verify' => true]);
