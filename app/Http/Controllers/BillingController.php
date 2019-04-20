@@ -37,7 +37,7 @@ class BillingController extends Controller
         $user = User::find($user_id);
         if ($user->billing) return redirect()->back()->with('error', 'you have already added billing information');
 
-        return view('billings.create');
+        return view('dynamic_pages.billings.create');
     }
 
     public function validator($req)

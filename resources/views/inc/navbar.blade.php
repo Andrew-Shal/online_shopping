@@ -16,14 +16,28 @@
                 <li class="nav-item"><a href="/services" class="nav-link">Services</a></li>
                 @if(Auth::user())
                     @if(!Auth::user()->seller_panel_enabled)
-                        <li class="nav-item"><a href="/sellers" class="nav-link">Become a Seller</a></li>
+                        <li class="nav-item"><a href="{{route('about.seller.enable')}}" class="nav-link">Become a Seller</a></li>
                     @else
                         @if(Request::is('dashboard'))
-                            <li class="nav-item"><a href="/admin/dashboard" class="nav-link">Buyers panel</a></li>
+                            <li class="nav-item"><a href="/admin/dashboard" class="nav-link">Sellers panel</a></li>
                         @elseif(Request::is('admin/dashboard'))
-                            <li class="nav-item"><a href="/dashboard" class="nav-link">Sellers panel</a></li>
+                            <li class="nav-item"><a href="/dashboard" class="nav-link">Buyers panel</a></li>
                         @endif
                     @endif
+                    @guest
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" 
+                                class="nav-link"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                            </a>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @endguest
                 @endif
 
             </ul>
@@ -44,19 +58,6 @@
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->first_name }} <span class="caret"></span>
                         </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a href="/dashboard" class="dropdown-item">dashboard</a>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
                     </li>
                 @endguest
             </ul>

@@ -44,7 +44,7 @@ class CheckoutController extends Controller
 
         $billingDetails = auth()->user()->billing;
 
-        return view('checkout')->with([
+        return view('dynamic_pages.checkout')->with([
             'products' => $cart->items,
             'totalQty' => $cart->totalQty,
             'totalPrice' => $cart->totalPrice,

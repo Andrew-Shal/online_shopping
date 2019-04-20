@@ -18,14 +18,14 @@ class CartController extends Controller
     public function index()
     {
         if (!Session::get('cart')) {
-            return view('cart')->with([
+            return view('dynamic_pages.cart')->with([
                 'products' => 0
             ]);
         }
 
         $cart = Session::get('cart');
 
-        return view('cart')->with([
+        return view('dynamic_pages.cart')->with([
             'products' => $cart->items,
             'totalQty' => $cart->totalQty,
             'totalPrice' => $cart->totalPrice

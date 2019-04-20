@@ -1,0 +1,66 @@
+/* admin/{resource} pages*/
+
+.admin {
+    .navbar {
+        position: fixed;
+        top: 0px;
+        width: 100%;
+        z-index: 998;
+    }
+    .container-fluid {
+        padding: 0;
+        margin-top: 32px;
+    }
+
+    .navbar-brand {
+        margin-left: -85px;
+    }
+
+    /*----------------page-wrapper----------------*/
+    .page-wrapper {
+        height: 100vh;
+        .theme {
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            border-radius: 4px;
+            margin: 2px;
+            &.chiller-theme {
+                background: #1e2229;
+            }
+        }
+        /*--------------------------page-content-----------------------------*/
+        .page-content {
+            display: inline-block;
+            width: 100%;
+            padding-left: 0px;
+            overflow-x: hidden;
+            > div {
+                padding: 20px 40px;
+            }
+        }
+    }
+
+    .page-wrapper .sidebar-wrapper,
+    .sidebar-wrapper .sidebar-brand > a,
+    .sidebar-wrapper .sidebar-dropdown > a:after,
+    .sidebar-wrapper
+        .sidebar-menu
+        .sidebar-dropdown
+        .sidebar-submenu
+        li
+        a:before,
+    .sidebar-wrapper ul li a i,
+    .page-wrapper .page-content,
+    .sidebar-wrapper .sidebar-search input.search-menu,
+    .sidebar-wrapper .sidebar-search .input-group-text,
+    .sidebar-wrapper .sidebar-menu ul li a,
+    #show-sidebar,
+    #close-sidebar {
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+}

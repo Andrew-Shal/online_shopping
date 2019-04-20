@@ -30,7 +30,7 @@ class RatingController extends Controller
      */
     public function create($pid)
     {
-        return view('ratings.create')->with('pid',$pid);
+        return view('dynamic_pages.ratings.create')->with('pid', $pid);
     }
 
     /**
@@ -52,11 +52,10 @@ class RatingController extends Controller
         $rating->review = $request->input('review');
         $rating->product_id = $request->input('p_id');
         $rating->user_id = auth()->user()->id;
-    
+
         $rating->save();
 
-        return redirect('/products')->with('success_message','Ratings successfully added!');
-        
+        return redirect('dashboard/')->with('success_message', 'Ratings successfully added!');
     }
 
     /**

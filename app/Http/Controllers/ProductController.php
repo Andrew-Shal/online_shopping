@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth', ['except' => ['show', 'index']]);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +19,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        $products = Product::orderBy('created_at', 'asc')->paginate(10);
-        return view('products.myproducts')->with('products', $products);
+
+        $products = Product::where('user_id', auth()->user()->id)
+            ->orderBy('created_at', 'asc')
+            ->paginate(3);
+        return view('dynamic_pages.products.myproducts')->with('products', $products);
     }
 
     /**
@@ -40,7 +36,7 @@ class ProductController extends Controller
         //
         if (!auth()->user()->id) return redirect('admin/dashboard/products')->with('error', 'You need to be logged in to add a product');
 
-        return view('products.create');
+        return view('dynamic_pages.products.create');
     }
 
     public function validator($req)
@@ -131,11 +127,11 @@ class ProductController extends Controller
                     }
                 }
 
-                return redirect('/admin/dashboard')->with('success', 'Product Sucessfully Added');
+                return redirect('/admin/dashboard/product')->with('success', 'Product Sucessfully Added');
             } catch (Exception $e) {
                 DB::rollBack();
                 $err = 'Unable to Add Product:' . $e->getMessage();
-                return  redirect('admin/dashboard')->with('error', $err);
+                return  redirect('admin/dashboard/product')->with('error', $err);
             }
         };
 
@@ -154,7 +150,7 @@ class ProductController extends Controller
         //
         $product = Product::find($id);
 
-        if (!$product) return redirect('/products')->with('error', 'product not found');
+        if (!$product) return redirect('dashboard/')->with('error', 'product not found');
 
         $product->total_views += 1;
         $product->save();
@@ -163,7 +159,7 @@ class ProductController extends Controller
             'product' => $product,
             'product_photos' => $product->productPhotos
         ];
-        return view('products.productdetail')->with($data);
+        return view('dynamic_pages.products.productdetail')->with($data);
     }
 
     /**
@@ -172,9 +168,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('dynamic_pages.products.edit')->with('product', $product);
     }
 
     /**
@@ -184,9 +182,80 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        //validate the request (form fields)
+        $this->validator($request);
+
+        //create product
+        $product = Product::find($id);
+
+        // handle file upload
+        if ($request->hasFile('featured_photo')) {
+            // Get filename with the extension
+            $filenameWithExt = $request->file('featured_photo')->getClientOriginalName();
+            //get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //get just ext
+            $extension = $request->file('featured_photo')->getClientOriginalExtension();
+            //filename to store
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+
+            //upload image
+            $folder = 'public/users/' . auth()->user()->id . '/product_images';
+            $path = $request->file('featured_photo')->storeAs($folder, $fileNameToStore);
+
+            $product->featured_photo = $fileNameToStore;
+        }
+
+
+        $product->name = $request->input('name');
+        $product->current_price = $request->input('current_price');
+        $product->qty = $request->input('qty');
+        $product->description = $request->input('description');
+        $product->condition = $request->input('condition');
+        $product->user_id = auth()->user()->id;
+        $product->return_policy = $request->input('return_policy');
+
+        $data = array();
+
+
+        if ($request->hasfile('filename')) {
+
+            foreach ($request->file('filename') as $image) {
+                $filenameWithExt = $image->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $image->getClientOriginalExtension();
+                $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+                $folder = 'public/users/' . auth()->user()->id . '/product_images';
+                $image->storeAs($folder, $fileNameToStore);
+                $data[] = $fileNameToStore;
+            }
+        }
+
+        $fn_create = function () use ($product, $data) {
+            try {
+                $product->save();
+
+                if (!empty($data)) {
+                    foreach ($data as $product_name) {
+                        $product_photo = ProductPhoto::where('photo', $product_name)->get();
+                        $product_photo->photo = $product_name;
+                        $product_photo->product_id = $product->id;
+                        $product_photo->save();
+                    }
+                }
+
+                return redirect('/admin/dashboard/product')->with('success', 'Product Sucessfully updated');
+            } catch (Exception $e) {
+                DB::rollBack();
+                $err = 'Unable to update Product:' . $e->getMessage();
+                return  redirect('admin/dashboard/product')->with('error', $err);
+            }
+        };
+
+        $return = DB::transaction($fn_create);
+        return $return;
     }
 
     /**
@@ -195,7 +264,7 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
         //
     }
@@ -220,11 +289,11 @@ class ProductController extends Controller
     public function getCart()
     {
         if (!Session::get('cart')) {
-            return view('products.getCart');
+            return view('dynamic_pages.products.getCart');
         }
 
         $cart = Session::get('cart');
-        return view('products.getCart', [
+        return view('dynamic_pages.products.getCart', [
             'products' => $cart->items,
             'totalPrice' => $cart->totalPrice
         ]);

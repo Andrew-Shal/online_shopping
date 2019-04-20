@@ -34,7 +34,7 @@ class PostController extends Controller
         //return Post::where('title', 'Post Two')->get();
         //$posts = DB::select('SELECT * FROM tbl_post');
         $posts = Post::orderBy('title', 'asc')->paginate(10);
-        return view('posts.index')->with('posts', $posts);
+        return view('dynamic_pages.posts.index')->with('posts', $posts);
     }
 
     /**
@@ -45,7 +45,7 @@ class PostController extends Controller
     public function create()
     {
         //
-        return view('posts.create');
+        return view('dynamic_pages.posts.create');
     }
 
     /**
@@ -88,7 +88,7 @@ class PostController extends Controller
         $post->cover_image = $fileNameToStore;
         $post->save();
 
-        return redirect('/posts')->with('success', 'Post Created');
+        return redirect('/admin/dashboard/posts')->with('success', 'Post Created');
     }
 
     /**
@@ -101,7 +101,7 @@ class PostController extends Controller
     {
         //
         $post = Post::find($id);
-        return view('posts.show')->with('post', $post);
+        return view('dynamic_pages.posts.show')->with('post', $post);
     }
 
     /**
@@ -116,10 +116,10 @@ class PostController extends Controller
 
         $post = Post::find($id);
         if (auth()->user()->id !== $post->user_id) {
-            return redirect('/posts')->with('error', 'Unauthorized access');
+            return redirect('/')->with('error', 'Unauthorized access');
         }
 
-        return view('posts.edit')->with('post', $post);
+        return view('dynamic_pages.posts.edit')->with('post', $post);
     }
 
     /**
@@ -163,7 +163,7 @@ class PostController extends Controller
         }
         $post->save();
 
-        return redirect('/posts')->with('success', 'Post Updated');
+        return redirect('admin/dashboard/posts')->with('success', 'Post Updated');
     }
 
     /**
@@ -178,13 +178,13 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
         if (auth()->user()->id !== $post->user_id) {
-            return redirect('/posts')->with('error', 'Unauthorized access');
+            return redirect('/')->with('error', 'Unauthorized access');
         }
 
         if ($post->cover_image !== 'noimage.jpg') {
             Storage::delete('public/cover_image/' . $post->cover_image);
         }
 
-        return redirect('/posts')->with('success', 'Post Removed');
+        return redirect('admin/dashboard/posts')->with('success', 'Post Removed');
     }
 }
