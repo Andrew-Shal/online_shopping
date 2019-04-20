@@ -9,11 +9,12 @@
   <main class="page-content {{request()->segment(2)}} {{request()->segment(3)}} {{request()->segment(4)}}">
       @include('dynamic_pages.seller.components.navbar')
       <div class="container-fluid">
-        <h2><span><i class="fab fa-blogger pr-3"></span></i>Edit Post</h2>
+        <h2><span><i class="fab fa-blogger pr-3"></i></span>Edit Post</h2>
         <hr>
         <!--   -->
         <div class="row">
             {!! Form::open(['action' => ['PostController@update',$post->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+              @csrf
             <div class="form-group">
               {{Form::label('title', 'Title')}}
               {{Form::text('title', $post->title, ['class' => 'form-control', 'placeholder'=>'Title'])}}

@@ -107,10 +107,10 @@
           <div class="sidebar-submenu">
             <ul>
               <li>
-                <a href="#">View</a>
+                <a href="/admin/dashboard/billing">View</a>
               </li>
               <li>
-                <a href="#">Edit</a>
+                <a href="/admin/dashboard/billing/edit">Edit</a>
               </li>
             </ul>
           </div>

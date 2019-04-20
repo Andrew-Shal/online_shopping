@@ -63,9 +63,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'seller.
         Route::resource('/product', 'ProductController');                       //seller's {resource} CRUD
         Route::get('/product/{id}/{name}', 'ProductController@show');           //seller's {resource} show
         Route::resource('/posts', 'PostController');                            //seller's {resource} CRUD
-        //Route::put('/posts/{id}', 'PostController@update');                            //seller's {resource} CRUD
-        //Route::get('/posts', 'PostController@index');                            //seller's {resource} CRUD
-        //Route::get('/posts/{id}/edit', 'PostController@edit');                            //seller's {resource} CRUD
+        Route::get('/billing', 'BillingController@index');                       //get billing information
+        Route::get('/billing/edit', 'BillingController@edit');                       //get edit page for billing information
+        Route::put('/billing/edit', 'BillingController@update');                       //update billing information
     });
 });
 

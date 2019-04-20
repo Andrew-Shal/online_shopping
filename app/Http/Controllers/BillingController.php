@@ -23,6 +23,10 @@ class BillingController extends Controller
     {
         //
 
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $billingDetails = $user->billing;
+        return view('dynamic_pages.billings.index')->with('billingDetails', $billingDetails);
     }
 
     /**
@@ -105,9 +109,15 @@ class BillingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        $billingInfo = $user->billing;
+
+        return view('dynamic_pages.billings.edit')->with('billingInfo', $billingInfo);
     }
 
     /**
@@ -117,9 +127,26 @@ class BillingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $user_id = auth()->user()->id;
+
+        $user = User::find($user_id);
+
+        $billingInfo = $user->billing;
+
+        $billingInfo->billing_name = $request->billing_name;
+        $billingInfo->billing_email = $request->billing_email;
+        $billingInfo->billing_address = $request->billing_address;
+        $billingInfo->billing_city = $request->billing_city;
+        $billingInfo->billing_province = $request->billing_province;
+        $billingInfo->billing_phone = $request->billing_phone;
+        $billingInfo->billing_phone = $request->billing_phone;
+
+        $billingInfo->save();
+
+        return redirect('/admin/dashboard/billing')->with('success', 'Billing information successfully updated!');
     }
 
     /**
