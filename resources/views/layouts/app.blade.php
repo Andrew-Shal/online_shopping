@@ -23,6 +23,7 @@
 
 <body>
     <div id="app" class="{{request()->segment(1)}}">
+        @if(request()->segment(1) != 'admin')@include('inc.navbar')@endif
         <div class="container-fluid">
             @include('inc.messages')
             @yield('content')

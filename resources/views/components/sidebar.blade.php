@@ -16,9 +16,9 @@
           alt="User picture">
       </div>
       <div class="user-info">
-        <span class="user-name">{{auth()->user()->first_name}}
+        <a href="/admin/dashboard/myprofile"><span class="user-name">{{auth()->user()->first_name}}
           <strong>{{auth()->user()->last_name}}</strong>
-        </span>
+        </span></a>
         <span class="user-role">Seller</span>
         <span class="user-status">
           <i class="fa fa-circle"></i>
@@ -85,8 +85,9 @@
         </li>
         <li id="nav-components" class="sidebar-dropdown">
           <a href="#">
-            <i class="far fa-gem"></i>
+            <i class="fab fa-blogger"></i>
             <span>Posts</span>
+            <span class="badge badge-pill badge-primary">Beta</span>
           </a>
           <div class="sidebar-submenu">
             <ul>
@@ -101,7 +102,7 @@
         </li>
         <li id="nav-charts" class="sidebar-dropdown">
           <a href="#">
-            <i class="fa fa-chart-line"></i>
+            <i class="fab fa-google-wallet"></i>
             <span>Billing</span>
           </a>
           <div class="sidebar-submenu">
@@ -118,15 +119,18 @@
         <li id="nav-maps" class="sidebar-dropdown">
           <a href="#">
             <i class="fa fa-cog"></i>
-            <span>settings</span>
+            <span>Settings</span>
           </a>
           <div class="sidebar-submenu">
             <ul>
               <li>
-                <a href="#">My Profile</a>
+                <a href="/admin/dashboard/myprofile">My Profile</a>
               </li>
               <li>
-                <a href="#">Update Profile</a>
+                <a href="/admin/dashboard/myprofile/edit">Update Profile</a>
+              </li>
+              <li>
+                <a href="/admin/dashboard/preferences">Preferences</a>
               </li>
             </ul>
           </div>
@@ -136,7 +140,7 @@
         </li>
         <li>
           <a href="#">
-            <i class="fa fa-book"></i>
+            <i class="fa fa-star"></i>
             <span>Ratings</span>
             <span class="badge badge-pill badge-primary">Beta</span>
           </a>
@@ -149,8 +153,8 @@
         </li>
         <li>
           <a href="#">
-            <i class="fa fa-folder"></i>
-            <span>Examples</span>
+            <i class="fas fa-file-pdf"></i>
+            <span>Documentation</span>
           </a>
         </li>
       </ul>

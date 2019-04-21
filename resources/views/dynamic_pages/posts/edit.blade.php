@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 {{Form::label('body', 'Body')}}
-                {{Form::textarea('body', $post->body , ['id' => 'summary-ckeditor','class' => 'form-control', 'placeholder'=>'Body text'])}}
+                {{Form::textarea('body', $post->body , ['id' => 'body-ckeditor','class' => 'form-control', 'placeholder'=>'Body text'])}}
               </div>
               <div class="form-group">
                   {{Form::file('cover_image')}}
@@ -35,4 +35,11 @@
     </main>
     <!-- page-content" -->
   </div>  
+@endsection
+
+@section('scripts')
+<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace('body-ckeditor');
+</script>
 @endsection
