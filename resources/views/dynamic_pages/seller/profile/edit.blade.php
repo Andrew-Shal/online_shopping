@@ -8,6 +8,9 @@
   
   <main class="page-content {{request()->segment(2)}} {{request()->segment(3)}} {{request()->segment(4)}}">
       @include('dynamic_pages.seller.components.navbar')
+
+      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('profile.index')}}">profile</a><a href="{{route('profile.edit')}}" class="current">edit</a></div>
+
       <div class="container-fluid">
         <h2><span><i class="fas fa-user pr-3"></i></span>Update My Profile</h2>
 

@@ -5,9 +5,12 @@
 
 <div class="page-wrapper chiller-theme toggled">
   @include('components.sidebar')
-  
+
   <main class="page-content {{request()->segment(2)}} {{request()->segment(3)}} {{request()->segment(4)}}">
       @include('dynamic_pages.seller.components.navbar')
+
+      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('preference.edit')}}" class="current">Preferences</a></div>
+
       <div class="container-fluid">
         <h2><span><i class="fas fa-sliders-h pr-3"></i></span>My Preferences</h2>
         <hr>

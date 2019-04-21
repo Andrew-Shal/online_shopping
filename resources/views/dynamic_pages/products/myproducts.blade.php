@@ -8,6 +8,9 @@
   
   <main class="page-content {{request()->segment(2)}}">
       @include('dynamic_pages.seller.components.navbar')
+      
+      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a> <a href="{{route('product.index')}}" class="current">Products</a></div>
+
       <div class="container-fluid">
         <h2><span><i class="fa fa-truck pr-3"></i></span>My Products</h2>
         <hr>
@@ -67,11 +70,6 @@
 <style>
 img.card-img-top {
   max-height: 280px;
-}
-
-.pagination{
-  width:100%;
-  margin-top:100px;
 }
 </style>
 @endsection

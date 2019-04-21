@@ -8,6 +8,9 @@
   
   <main class="page-content {{request()->segment(2)}} {{request()->segment(3)}} {{request()->segment(4)}}">
       @include('dynamic_pages.seller.components.navbar')
+
+      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('posts.index')}}">Posts</a><a href="{{route('posts.create')}}" class="current">create post</a></div>
+      
       <div class="container-fluid">
         <h2><span><i class="fab fa-blogger pr-3"></span></i>Create Post</h2>
         <hr>

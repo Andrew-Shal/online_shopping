@@ -13,9 +13,9 @@
   z-index: 998;
 }
 
-.admin .container-fluid {
+.admin > .container-fluid {
   padding: 0;
-  margin-top: 32px;
+  margin-top: 65px;
 }
 
 .admin .navbar-brand {
@@ -46,7 +46,7 @@
   overflow-x: hidden;
 }
 
-.admin .page-wrapper .page-content > div {
+.admin .page-wrapper .page-content > div.container-fluid {
   padding: 20px 40px;
 }
 
@@ -66,6 +66,35 @@
 
 body {
   font-size: 0.9rem;
+}
+
+#breadcrumb {
+  background-color: #fff;
+  border-bottom: 1px solid #e3ebed;
+}
+
+#breadcrumb a {
+  padding: 8px 20px 8px 10px;
+  display: inline-block;
+  background-image: url(/images/breadcrumb.png?78851a040af14c17af1e8ff4d84dd750);
+  background-position: center right;
+  background-repeat: no-repeat;
+  font-size: 11px;
+  color: #666666;
+}
+
+#breadcrumb a.current {
+  font-weight: bold;
+  color: #444444;
+}
+
+#breadcrumb a:last-child {
+  background-image: none;
+}
+
+#breadcrumb a i {
+  margin-right: 5px;
+  opacity: 0.6;
 }
 
 /*----------------show sidebar button----------------*/
@@ -346,6 +375,11 @@ body {
 }
 
 /*admin navigation bar*/
+
+.pagination {
+  width: 100%;
+  margin-top: 100px;
+}
 
 /*------scroll bar---------------------*/
 

@@ -8,6 +8,9 @@
   
   <main class="page-content {{request()->segment(2)}}">
       @include('dynamic_pages.seller.components.navbar')
+
+      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home" class="current"><i class="fa fa-home"></i> Home</a></div>
+
       <div class="container-fluid">
         <h2><span><i class="fa fa-tachometer-alt pr-3"></i></span>Dashboard</h2>
         <hr>

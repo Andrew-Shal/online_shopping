@@ -59,18 +59,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'seller.
 
     Route::group(['prefix' => 'dashboard'], function () {
 
-        Route::get('/', 'SellerController@index')->name('seller_home');         //get seller dashboard 
-        Route::resource('/product', 'ProductController');                       //seller's {resource} CRUD
-        Route::get('/product/{id}/{name}', 'ProductController@show');           //seller's {resource} show
-        Route::resource('/posts', 'PostController');                            //seller's {resource} CRUD
-        Route::get('/billing', 'BillingController@index');                      //get billing information
-        Route::get('/billing/edit', 'BillingController@edit');                  //get edit page for billing information
-        Route::put('/billing/edit', 'BillingController@update');                //update billing information
-        Route::get('/myprofile', 'MyProfileController@index');                  //update billing information
-        Route::get('/myprofile/edit', 'MyProfileController@edit');                  //update billing information
-        Route::put('/myprofile', 'MyProfileController@update');                  //update billing information
-        Route::get('/preferences', 'PreferencesController@edit');                  //update billing information
-        Route::put('/preferences', 'PreferencesController@update');                  //update billing information
+        Route::get('/', 'SellerController@index')->name('seller_home');                         //get seller dashboard 
+        Route::resource('/product', 'ProductController');                                       //seller's {resource} CRUD
+        Route::get('/product/{id}/{name}', 'ProductController@show')->name('product.id_name');  //seller's {resource} show
+        Route::resource('/posts', 'PostController');                                            //seller's {resource} CRUD
+        Route::get('/billing', 'BillingController@index')->name('billing.index');               //get billing information
+        Route::get('/billing/edit', 'BillingController@edit')->name('billing.edit');            //get edit page for billing information
+        Route::put('/billing/edit', 'BillingController@update')->name('billing.update');        //update billing information
+        Route::get('/myprofile', 'MyProfileController@index')->name('profile.index');           //update billing information
+        Route::get('/myprofile/edit', 'MyProfileController@edit')->name('profile.edit');        //update billing information
+        Route::put('/myprofile', 'MyProfileController@update')->name('profile.update');         //update billing information
+        Route::get('/preferences', 'PreferencesController@edit')->name('preference.edit');      //update billing information
+        Route::put('/preferences', 'PreferencesController@update')->name('preference.update');  //update billing information
     });
 });
 
