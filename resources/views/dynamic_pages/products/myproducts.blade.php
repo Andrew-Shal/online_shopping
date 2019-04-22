@@ -24,9 +24,9 @@
                 <div class="card mr-4" style="width: 18rem;">
 
                     @if($product->featured_photo == 'noimage_placeholder.jpg')
-                      <a href="/admin/dashboard/product/{{$product->id}}/{{$product->name}}"><img class="card-img-top" src="/storage/users/default/product_images/{{$product->featured_photo}}" alt="Card image cap"></a>
+                      <a href="/admin/dashboard/product/{{$product->id}}/{{$product->slug}}"><img class="card-img-top" src="/storage/users/default/product_images/{{$product->featured_photo}}" alt="Card image cap"></a>
                     @else
-                      <a href="/admin/dashboard/product/{{$product->id}}/{{$product->name}}"><img class="card-img-top" src="/storage/users/{{$product->user_id}}/product_images/{{$product->featured_photo}}" alt="Card image cap"></a>
+                      <a href="/admin/dashboard/product/{{$product->id}}/{{$product->slug}}"><img class="card-img-top" src="/storage/users/{{$product->user_id}}/product_images/{{$product->featured_photo}}" alt="Card image cap"></a>
                     @endif
 
                     <div class="card-body">

@@ -96,6 +96,7 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->condition = $request->input('condition');
         $product->user_id = auth()->user()->id;
+        $product->slug = $this->makeSlug($product->name);
         $product->return_policy = $request->input('return_policy');
 
         $data = array();
@@ -145,15 +146,12 @@ class ProductController extends Controller
      * @param int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $name)
+    public function show($id, $slug)
     {
         //
-        $product = Product::find($id);
+        $product = Product::where('id', $id)->where('slug', $slug)->where('user_id', auth()->user()->id)->first();
 
-        if (!$product) return redirect('dashboard/')->with('error', 'product not found');
-
-        $product->total_views += 1;
-        $product->save();
+        if (!$product) return redirect()->back()->with('error', 'product not found');
 
         $data = [
             'product' => $product,
@@ -170,7 +168,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::where('id', $id)->where('user_id', auth()->user()->id)->first();
+
+        if (!$product) return redirect()->back()->with('error', 'product not found');
 
         return view('dynamic_pages.products.edit')->with('product', $product);
     }
@@ -215,6 +215,7 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->condition = $request->input('condition');
         $product->user_id = auth()->user()->id;
+        $product->slug = $this->makeSlug($product->name);
         $product->return_policy = $request->input('return_policy');
 
         $data = array();
@@ -297,5 +298,12 @@ class ProductController extends Controller
             'products' => $cart->items,
             'totalPrice' => $cart->totalPrice
         ]);
+    }
+
+    protected function makeSlug($p_name)
+    {
+        $arr = explode(' ', $p_name);
+
+        return sizeof($arr) < 1 ? implode('', $arr) : implode('-', $arr);
     }
 }

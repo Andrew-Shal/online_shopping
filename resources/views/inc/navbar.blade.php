@@ -1,66 +1,84 @@
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="/services" class="nav-link">Services</a></li>
-                @if(Auth::user())
-                    @if(!Auth::user()->seller_panel_enabled)
-                        <li class="nav-item"><a href="{{route('about.seller.enable')}}" class="nav-link">Become a Seller</a></li>
-                    @else
-                        @if(Request::is('dashboard'))
-                            <li class="nav-item"><a href="/admin/dashboard" class="nav-link">Sellers panel</a></li>
-                        @elseif(Request::is('admin/dashboard'))
-                            <li class="nav-item"><a href="/dashboard" class="nav-link">Buyers panel</a></li>
-                        @endif
-                    @endif
-                    @guest
-                    @else
-                        <li class="nav-item">
-                            <a href="{{ route('logout') }}" 
-                                class="nav-link"
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                            </a>
-                        </li>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    @endguest
-                @endif
-
-            </ul>
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->first_name }} <span class="caret"></span>
-                        </a>
-                    </li>
-                @endguest
-            </ul>
+<div class="header">
+        <div class="container">
+            <div class="row inner">
+                <div class="col-md-4 logo">
+                    <a href="/" class="navbar-brand"><img src="{{asset('storage/assets/header/online-shop-logo-thumb.png')}}"/></a>
+                </div>
+                <div class="col-md-8 right">
+                    <ul>
+                        <li><a href="{{route('login')}}"><i class="fa fa-sign-in-alt"></i> Login</a></li>
+                        <li><a href="{{route('register')}}"><i class="fa fa-user-plus"></i> Register</a></li>
+                        <li><a href="{{route('cart.index')}}"><i class="fa fa-shopping-cart"></i> View Cart ($0.00)</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">{{config('app.name')}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="{{route('shop.index')}}">Shop <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">see more</a>
+            </div>
+        </li>
+        @if(Auth::user())
+            @if(!Auth::user()->seller_panel_enabled)
+                <li class="nav-item"><a href="{{route('about.seller.enable')}}" class="nav-link">Become a Seller</a></li>
+            @else
+                <li class="nav-item"><a href="/admin/dashboard" class="nav-link">Sellers panel</a></li>
+            @endif
+        @endif
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('page.contact')}}">Contact Us</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('page.about')}}">About Us</a>
+        </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
 </nav>
+
+@section('scripts')
+<script>
+$(function(){
+    var navbar = $('nav.navbar');
+    var initPosition = navbar.offset().top;
+
+    $(window).scroll(function(){
+
+      if($(this).scrollTop()>=initPosition){
+        navbar.addClass('stickyNav');
+        $('#main').addClass('offsetNav');
+      }else{
+        navbar.removeClass('stickyNav');
+        $('#main').removeClass('offsetNav');
+      }
+    });
+  });
+</script>
+@endsection
+
+

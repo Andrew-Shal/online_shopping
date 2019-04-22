@@ -374,7 +374,83 @@ body {
           animation: sonar 1.5s infinite;
 }
 
-/*admin navigation bar*/
+div#app:not(.admin) nav.navbar {
+  background-color: #df308b;
+}
+
+div#app:not(.admin) nav.navbar.stickyNav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  margin-bottom: 156px;
+}
+
+div#app:not(.admin) nav.navbar .navbar-collapse a {
+  color: #fff;
+}
+
+div#app:not(.admin) nav.navbar .navbar-collapse a:hover {
+  color: #d4d4d4;
+}
+
+div#app:not(.admin) nav.navbar .navbar-collapse a.dropdown-item:hover,
+div#app:not(.admin) nav.navbar .navbar-collapse a.dropdown-item:focus {
+  background-color: #b72973;
+}
+
+div#app:not(.admin) nav.navbar .navbar-collapse .dropdown-menu.show {
+  background-color: #df308b;
+}
+
+div#app:not(.admin) nav.navbar .btn {
+  color: #fff;
+  background-color: transparent;
+  background-image: none;
+  border-color: #fff;
+}
+
+.header {
+  background: #fff;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.header .logo a.navbar-brand {
+  color: #e4144d;
+}
+
+.header .logo img {
+  width: 176px;
+}
+
+.header .right {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.header .right ul {
+  float: right;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .header .right ul {
+    padding-left: 0px;
+    float: none;
+  }
+}
+
+.header .right ul li {
+  list-style-type: none;
+  float: left;
+  margin-left: 14px;
+}
+
+.header .right ul li a {
+  color: #e4144d;
+}
 
 .pagination {
   width: 100%;
@@ -706,6 +782,10 @@ body {
   .admin .dashboard .quick-actions_homepage .quick-actions li {
     min-width: 47%;
   }
+}
+
+#main.offsetNav {
+  margin-top: 56px;
 }
 
 /*-----------------------------chiller-theme-------------------------------------------------*/

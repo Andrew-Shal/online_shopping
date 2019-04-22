@@ -9,7 +9,7 @@
   <main class="page-content {{request()->segment(2)}} {{request()->segment(3)}} {{request()->segment(5)}}">
       @include('dynamic_pages.seller.components.navbar')
 
-      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('product.index')}}">Products</a><a href="{{route('product.id_name',[$product->id,$product->name])}}">{{$product->name}}</a><a href="{{route('product.edit',$product->id)}}" class="current">edit</a></div>
+      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('product.index')}}">Products</a><a href="{{route('product.id_slug',[$product->id,$product->slug])}}">{{$product->name}}</a><a href="{{route('product.edit',$product->id)}}" class="current">edit</a></div>
 
       <div class="container-fluid">
         <h2><span><i class="fa fa-truck pr-3"></span></i>{{$product->name}}</h2>

@@ -3,23 +3,15 @@
 @section('content')
 
 
-<div class="page-wrapper chiller-theme toggled">
-  @include('components.sidebar')
+<div class="page-wrapper chiller-theme">
   
   <main class="page-content {{request()->segment(2)}}">
-      @include('dynamic_pages.seller.components.navbar')
-
-      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('product.index')}}">Products</a><a href="{{route('product.id_slug',[$product->id,$product->slug])}}" class="current">{{$product->name}}</a></div>
 
       <div class="container-fluid">
         <h2><span><i class="fa fa-truck pr-3"></i></span>{{$product->name}}</h2>
         <hr>
         
-        @if (session()->has('success'))          
-          <div class="alert alert-success">          <!-- this shows the success feedback form the system if any -->
-              {{ session()->get('success') }}
-          </div>
-        @endif
+        @include('inc.messages')
 
         <?php
         $json = json_encode(json_decode($product), JSON_PRETTY_PRINT); 

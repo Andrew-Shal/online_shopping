@@ -1,0 +1,39 @@
+.header {
+    background: #fff;
+    a {
+        text-decoration: none;
+    }
+    .logo {
+        a {
+            &.navbar-brand {
+                color: #e4144d;
+            }
+        }
+        img {
+            width: 176px;
+        }
+    }
+
+    .right {
+        margin-top: auto;
+        margin-bottom: auto;
+
+        ul {
+            float: right;
+            margin-bottom: 0;
+
+            @media (max-width: 768px) {
+                padding-left: 0px;
+                float: none;
+            }
+            li {
+                list-style-type: none;
+                float: left;
+                margin-left: 14px;
+                a {
+                    color: #e4144d;
+                }
+            }
+        }
+    }
+}

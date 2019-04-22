@@ -21,10 +21,10 @@
 
 </head>
 
-<body>
+<body class="hello-kitty-theme">
     <div id="app" class="{{request()->segment(1)}}">
         @if(request()->segment(1) != 'admin')@include('inc.navbar')@endif
-        <div class="container-fluid">
+        <div id="main" class="container-fluid">
             @include('inc.messages')
             @yield('content')
         </div>

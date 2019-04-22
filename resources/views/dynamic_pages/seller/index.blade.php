@@ -13,6 +13,8 @@
 
       <div class="container-fluid">
         <h2><span><i class="fa fa-tachometer-alt pr-3"></i></span>Dashboard</h2>
+
+        @include('inc.messages')
         <hr>
         <!--Action boxes-->
         <div class="row">

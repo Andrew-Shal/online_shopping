@@ -23,7 +23,7 @@ class Product extends Model
      */
     protected $fillable = [
         'name', 'current_price', 'qty', 'featured_photo',
-        'filename', 'description', 'condition', 'return_policy',
+        'filename', 'description', 'condition', 'return_policy', 'slug',
     ];
 
     /**

@@ -45,6 +45,38 @@
 |
 */
 
+/*
+ *--------------------
+ *  Static Content Routes   ->  By  AS pages incomplete
+ *--------------------
+ */
+Route::get('/about', 'PagesController@about')->name('page.about');
+Route::get('/contact', 'PagesController@contact')->name('page.contact');
+
+
+/**
+ * 
+ * --------------------
+ * Landing Page     ->  By  AS completed on 21/04/19
+ * --------------------
+ * 
+ */
+Route::get('/', 'PagesController@index');
+
+
+/**
+ * 
+ * --------------------
+ * Shop Pages     ->  By  AS completed on 21/04/19
+ * --------------------
+ * 
+ */
+Route::group(['prefix' => 'shop'], function () {
+    Route::get('/', 'ShopController@index')->name('shop.index');
+    Route::get('/product/{p_id}/{p_slug}', 'ShopController@productDetail')->name('shop.product.detail');
+});
+
+
 /**
  * 
  * --------------------
@@ -60,17 +92,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'seller.
     Route::group(['prefix' => 'dashboard'], function () {
 
         Route::get('/', 'SellerController@index')->name('seller_home');                         //get seller dashboard 
-        Route::resource('/product', 'ProductController');                                       //seller's {resource} CRUD
-        Route::get('/product/{id}/{name}', 'ProductController@show')->name('product.id_name');  //seller's {resource} show
+        Route::resource('/product', 'ProductController');                                       //seller's product resource CRUD
+        Route::get('/product/{id}/{slug}', 'ProductController@show')->name('product.id_slug');  //seller's {resource} show
         Route::resource('/posts', 'PostController');                                            //seller's {resource} CRUD
         Route::get('/billing', 'BillingController@index')->name('billing.index');               //get billing information
         Route::get('/billing/edit', 'BillingController@edit')->name('billing.edit');            //get edit page for billing information
         Route::put('/billing/edit', 'BillingController@update')->name('billing.update');        //update billing information
-        Route::get('/myprofile', 'MyProfileController@index')->name('profile.index');           //update billing information
-        Route::get('/myprofile/edit', 'MyProfileController@edit')->name('profile.edit');        //update billing information
-        Route::put('/myprofile', 'MyProfileController@update')->name('profile.update');         //update billing information
-        Route::get('/preferences', 'PreferencesController@edit')->name('preference.edit');      //update billing information
-        Route::put('/preferences', 'PreferencesController@update')->name('preference.update');  //update billing information
+        Route::get('/myprofile', 'MyProfileController@index')->name('profile.index');           //
+        Route::get('/myprofile/edit', 'MyProfileController@edit')->name('profile.edit');        //
+        Route::put('/myprofile', 'MyProfileController@update')->name('profile.update');         //
+        Route::get('/preferences', 'PreferencesController@edit')->name('preference.edit');      //
+        Route::put('/preferences', 'PreferencesController@update')->name('preference.update');  //
     });
 });
 
@@ -89,6 +121,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
     Route::get('/', 'BuyerController@index')->name('buyer_home');                                       //get buyer dashboard
     Route::get('/sellers', 'PagesController@enabling_seller_panel')->name('about.seller.enable');       //static page, about sellers panel
+    Route::get('/billing', 'PagesController@enabling_seller_panel')->name('about.seller.enable');       //static page, about sellers panel
 });
 
 
@@ -105,14 +138,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
 
 
-/*
- *--------------------
- *  Static Content Routes 
- *--------------------
- */
-Route::get('/', 'PagesController@index');
-Route::get('/about', 'PagesController@about');
-Route::get('/services', 'PagesController@services');
 
 /*
  *--------------------

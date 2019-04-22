@@ -15,8 +15,11 @@ class PagesController extends Controller
 
     public function about()
     {
-        $h1Title = "About Online Shopping";
-        return view('static_pages.about')->with('h1Title', $h1Title);
+        return view('static_pages.about');
+    }
+    public function contact()
+    {
+        return view('static_pages.contact');
     }
 
     public function services()
