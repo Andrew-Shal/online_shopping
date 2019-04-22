@@ -6,9 +6,8 @@ use App\Billing;
 use App\Order;
 use App\Product;
 use App\OrderProduct;
-use App\Mail\OrderPlaced;
+use App\Jobs\SendOrderPlacedEmail;
 use App\Http\Requests\CheckoutRequest;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Mockery\Exception;
@@ -76,7 +75,7 @@ class CheckoutController extends Controller
             //transaction was successful
             $order = $this->addToOrdersTable($request, null);
 
-            Mail::send(new OrderPlaced($order));
+            SendOrderPlacedEmail::dispatch($order);
 
             //decrease the qty of all products in the cart
             $this->decreaseQuantities();

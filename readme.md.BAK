@@ -160,3 +160,28 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 #composer dump-autoload
 
 #php artisan migrate:refresh
+
+
+#SCHEDULER
+
+#php artisan make:command GenerateRecommendation
+#php command:GenerateRecommendation
+
+#search for app->console->commands->GenerateRecommendation
+#in handle we do whatever what we want to do
+
+#type in command php command:GenerateRecommendation
+
+#search for app->console->kernel
+#in kernel schedule, we add which command we want to run and when
+
+#now we can use the command php artisan schedule:run to start the scheduler
+#refer to this link to start a task scheduler on windows or on a server using crontab
+#https://laracasts.com/discuss/channels/laravel/how-do-i-schedule-a-job-with-laravel-and-xampp
+#https://medium.com/@tik/how-to-create-and-monitor-scheduled-tasks-in-laravel-applications-784d4f7f8084
+
+#JOBS AND QUEUES
+
+#php artisan make:job SendOrderPlacedEmail
+
+#php artisan queue:work

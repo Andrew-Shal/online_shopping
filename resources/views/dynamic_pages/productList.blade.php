@@ -38,7 +38,7 @@
                   <input type="hidden" name="id" value="{{$product->id}}">
                   <!--<a href="/rating/{{$product->id}}"><i class="fa fa-plus-square"></i>Rate</a>-->
                 </form>
-                <a href="{{route('shop.product.list')}}" onclick="event.preventDefault();document.getElementById('addToCart').submit();"><i class="fa fa-plus-square mr-2"></i>Add to Cart</a>
+                <a href="{{ route('cart.store') }}" onclick="event.preventDefault();$(this).parent().children('form#addToCart').submit();"><i class="fa fa-plus-square mr-2"></i>Add to Cart</a>
 
                   <a href="{{route('shop.product.detail',[$product->id,$product->slug])}}" class="float-right"><i class="fa fa-plus-square mr-2"></i>View Product</a>
               @endif
