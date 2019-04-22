@@ -88,4 +88,10 @@ class Product extends Model
     {
         return "$" . number_format($this->current_price, 2, '.', ',');
     }
+
+    public function scopeLike($query, $field, $value)
+    {
+        $matchfnb = "%" . $value . "%";
+        return $query->where('is_active', 1)->where($field, 'LIKE', $matchfnb);
+    }
 }

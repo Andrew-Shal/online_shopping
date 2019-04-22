@@ -6,8 +6,23 @@
                 </div>
                 <div class="col-md-8 right">
                     <ul>
-                        <li><a href="{{route('login')}}"><i class="fa fa-sign-in-alt"></i> Login</a></li>
-                        <li><a href="{{route('register')}}"><i class="fa fa-user-plus"></i> Register</a></li>
+                        @if(Auth::user())
+                            <li class="nav-item">
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out-alt"></i>
+                                            {{ __('Logout') }}
+                                    </a>
+                                </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                <li><a href="{{route('buyer_home')}}"><i class="fa fa-tachometer-alt"></i> Dashboard</a></li>
+                        @else
+                            <li><a href="{{route('login')}}"><i class="fa fa-sign-in-alt"></i> Login</a></li>
+                            <li><a href="{{route('register')}}"><i class="fa fa-user-plus"></i> Register</a></li>
+                        @endif
                         <li><a href="{{route('cart.index')}}"><i class="fa fa-shopping-cart"></i> View Cart ($0.00)</a></li>
                     </ul>
                 </div>
@@ -24,10 +39,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link" href="{{route('shop.index')}}">Shop <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="{{route('shop.product.list')}}">Shop <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,9 +66,9 @@
             <a class="nav-link" href="{{route('page.about')}}">About Us</a>
         </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form class="form-inline my-2 my-lg-0" action="{{route('shop.product.search')}}" method="GET">
+            <input name="search_param" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
 </nav>

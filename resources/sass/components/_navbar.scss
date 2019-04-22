@@ -1,12 +1,14 @@
 div#app:not(.admin) {
     nav.navbar {
+        background-color: #df308b;
+        z-index: 999;
+
         &.stickyNav {
             position: fixed;
             width: 100%;
             top: 0;
             margin-bottom: 156px;
         }
-        background-color: #df308b;
         .navbar-collapse {
             a {
                 color: #fff;

@@ -56,40 +56,34 @@
           </table>
         @else
           <!--this user is a guest billing info from billing details-->
-          
-          <table>
-              <form method="POST" action = {{route('checkout.store')}}>
-                @csrf
-              <tbody>
-                <tr>
-                  <td>Email:</td>
-                  <td><input type="text" name="email"></td>
-                </tr>
-                <tr>
-                  <td>Full Name:</td>
-                  <td><input type="text" name="name"></td>
-                </tr>
-                <tr>
-                  <td>Phone Number:</td>
-                  <td><input type="text" name="phone"></td>
-                </tr>
-                <tr>
-                  <td>Country:</td>
-                  <td><input type="text" name="province"></td>
-                </tr>
-                <tr>
-                  <td>Address:</td>
-                  <td><input type="text" name="address"></td>
-                </tr>
-                <tr>
-                  <td>City:</td>
-                  <td><input type="text" name="city"></td>
-                </tr>
-              </tbody>
-
-              <input type="hidden" name="total_price" value="{{$totalPrice}}">
-            </form>
-            </table>
+          <div lass="row">
+              {!! Form::open(['id'=>'billingInfo']) !!}
+              <div class="form-group">
+                {{Form::label('email', 'email')}}
+                {{Form::text('email', '', ['class' => 'form-control', 'placeholder'=>'email'])}}
+              </div>
+              <div class="form-group">
+                {{Form::label('name', 'name')}}
+                {{Form::text('name', '', ['class' => 'form-control', 'placeholder'=>'name'])}}
+              </div>
+              <div class="form-group">
+                {{Form::label('phone', 'phone')}}
+                {{Form::text('phone', '', ['class' => 'form-control', 'placeholder'=>'phone'])}}
+              </div>
+              <div class="form-group">
+                {{Form::label('province', 'province')}}
+                {{Form::text('province', '', ['class' => 'form-control', 'placeholder'=>'province'])}}
+              </div>
+              <div class="form-group">
+                {{Form::label('address', 'address')}}
+                {{Form::text('address', '', ['class' => 'form-control', 'placeholder'=>'address'])}}
+              </div>
+              <div class="form-group">
+                {{Form::label('city', 'city')}}
+                {{Form::text('city', '', ['class' => 'form-control', 'placeholder'=>'city'])}}
+              </div>
+            {!! Form::close() !!}
+          </div>
         @endif
     </div>
     <div class="col-md-6">
@@ -174,9 +168,66 @@
         @endif
       @else
           <p>guest payment method</p>
+          <div class="row">
+              <div class="col-md-8">
+              <form id="payment" action="{{route('checkout.store')}}" method="POST">
+                @csrf
+                  <input type="hidden" name="email" value="">
+                  <input type="hidden" name="name" value="">
+                  <input type="hidden" name="address" value="">
+                  <input type="hidden" name="city" value="">
+                  <input type="hidden" name="province" value="">
+                  <input type="hidden" name="phone" value="">
+                  <input type="hidden" name="total_price" value="{{$totalPrice}}">
+                  <div class="col-md-12 form-group">
+                      <label for="">Name on Card *</label>
+                      <input type="text" name="billing_name_on_card" class="form-control">
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="">Card Number *</label>
+                      <input type="text" name="card_number" class="form-control">
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="">CVV *</label>
+                      <input type="text" name="card_cvv" class="form-control card-cvc">
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="">Month *</label>
+                      <input type="text" name="card_month" class="form-control card-expiry-month">
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="">Year *</label>
+                      <input type="text" name="card_year" class="form-control card-expiry-year">
+                  </div>
+                  <div class="col-md-12 form-group">
+                  </div>
+                </form>  
+                <a href="/thankyou" class="btn btn-success" onclick="event.preventDefault();submitPayment()">Pay Now</a>
+              </div>            
+              <!--end -->
+        </div>
       @endif
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+
+@if(Request::is('guestCheckout'))
+  <script>
+    function submitPayment(){
+      $('[name=email]',$('#payment')).val($('[name=email]',$('#billingInfo')).val());
+      $('[name=name]',$('#payment')).val($('[name=name]',$('#billingInfo')).val());
+      $('[name=address]',$('#payment')).val($('[name=address]',$('#billingInfo')).val());
+      $('[name=city]',$('#payment')).val($('[name=city]',$('#billingInfo')).val());
+      $('[name=province]',$('#payment')).val($('[name=province]',$('#billingInfo')).val());
+      $('[name=phone]',$('#payment')).val($('[name=phone]',$('#billingInfo')).val());
+      $('#payment').submit();
+    }
+
+  </script>
+@endif
+
 @endsection
 

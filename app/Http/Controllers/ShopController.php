@@ -42,4 +42,26 @@ class ShopController extends Controller
 
         return view('dynamic_pages.productDetail')->with($data);
     }
+
+    public function productList()
+    {
+        $products = Product::where('is_active', 1)
+            ->orderBy('created_at', 'asc')
+            ->paginate(20);
+        return view('dynamic_pages.productList')->with('products', $products);
+    }
+
+    public function productSearch(Request $request)
+    {
+        $input = $request->input();
+        $search = $request->query('search_param');
+
+        if (!$search) return redirect()->route('shop.product.list');
+
+        $products = Product::like('name', $search)->paginate(20)->appends($input);
+
+        if (count($products) < 1) return redirect()->route('shop.product.list')->with('error', ('no product was found with query: ' . $search));
+
+        return view('dynamic_pages.productSearch')->with('products', $products);
+    }
 }

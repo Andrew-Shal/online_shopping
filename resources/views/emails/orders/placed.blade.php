@@ -4,7 +4,6 @@
   </head>
   <body>
 
-
 <h1>Receipt #{{ $order->id }} Order Received</h1>
 
 

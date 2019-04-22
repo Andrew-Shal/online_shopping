@@ -73,6 +73,8 @@ Route::get('/', 'PagesController@index');
  */
 Route::group(['prefix' => 'shop'], function () {
     Route::get('/', 'ShopController@index')->name('shop.index');
+    Route::get('/products', 'ShopController@productList')->name('shop.product.list');
+    Route::get('/products/search', 'ShopController@productSearch')->name('shop.product.search');
     Route::get('/product/{p_id}/{p_slug}', 'ShopController@productDetail')->name('shop.product.detail');
 });
 

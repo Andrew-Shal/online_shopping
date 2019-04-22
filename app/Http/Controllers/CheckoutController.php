@@ -30,7 +30,7 @@ class CheckoutController extends Controller
         $cart = Session::get('cart');
 
         if (!auth()->user() && request()->is('guestCheckout')) {
-            return view('checkout')->with([
+            return view('dynamic_pages.checkout')->with([
                 'products' => $cart->items,
                 'totalQty' => $cart->totalQty,
                 'totalPrice' => $cart->totalPrice,
