@@ -23,7 +23,16 @@
                             <li><a href="{{route('login')}}"><i class="fa fa-sign-in-alt"></i> Login</a></li>
                             <li><a href="{{route('register')}}"><i class="fa fa-user-plus"></i> Register</a></li>
                         @endif
-                        <li><a href="{{route('cart.index')}}"><i class="fa fa-shopping-cart"></i> View Cart ($0.00)</a></li>
+                        <li><a href="{{route('cart.index')}}"><i class="fa fa-shopping-cart"></i> View Cart ($
+                            <?php
+                                if(!Session::get('cart')){
+                                    echo '0.00';
+                                }else{
+                                    $cart = Session::get('cart');
+                                    echo $cart->totalPrice;
+                                }
+                            ?>
+                            )</a></li>
                     </ul>
                 </div>
             </div>
@@ -67,13 +76,12 @@
         </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="{{route('shop.product.search')}}" method="GET">
-            <input name="search_param" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <input name="search_param" class="form-control mr-sm-2" type="search" placeholder="Search" value="{{old("search_param")}}" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
 </nav>
 
-@section('scripts')
 <script>
 $(function(){
     var navbar = $('nav.navbar');
@@ -91,6 +99,5 @@ $(function(){
     });
   });
 </script>
-@endsection
 
 
