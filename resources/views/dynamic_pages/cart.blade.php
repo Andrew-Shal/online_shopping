@@ -65,7 +65,7 @@
         </tbody>
         </table>
 
-        <a class="btn btn-primary" href="{{URL::previous()}}">continue shopping</a>
+        <a class="btn btn-primary" href="{{route('shop.product.list')}}">continue shopping</a>
         
         <div class="float-right">
             <form action="{{ route('cart.clearCart') }}" method="POST">

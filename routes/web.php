@@ -175,7 +175,7 @@ Route::post('/rating', 'RatingController@store')->name('rating.store');
  *  Recomendation Routes 
  *--------------------
  */
-Route::get('/recommendation', 'RecommendationController@create')->name('recommendation.create');
+//Route::get('/recommendation', 'RecommendationController@create')->name('recommendation.create');
 
 
 

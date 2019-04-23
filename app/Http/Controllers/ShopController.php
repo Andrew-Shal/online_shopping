@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Rating;
+use App\User;
+use App\ViewHistory;
+use App\Recommender;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -10,19 +14,38 @@ class ShopController extends Controller
     //
     public function index()
     {
-        //get all data that should be loaded for the landing page
-        //we should check if the user is logged in, if he/she is logged in,
-        //we show them reccomended products,
-        //recently viewed
-        //products saved in cart
-        //ect ... anything that you can think of
+
+        $recommender = new Recommender();
+        $recommendations = $recommender->recommendationOnRatingsForUser(Rating::all(), User::inRandomOrder()->first()->id);
 
         $landingData = array(
             'dynamic-content' => 'you can pass a variable here, remove the quotes and add the $',
-            'recommeneded' => ['we', 'can', 'pass', 'an', 'array', 'here']
+            'recommeneded' => ['we', 'can', 'pass', 'an', 'array', 'here'],
+            'recommendations' => $recommendations,
+            'matrix' => $recommender->getMatrix(),
+            'forUser' => $recommender->forUser
         );
 
+
         return view('dynamic_pages.index')->with($landingData);
+    }
+
+    protected function updateViewHistory($p_id)
+    {
+        if (auth()->user()) {
+
+            $viewHistory = ViewHistory::where('user_id', auth()->user()->id)->where('product_id', $p_id)->first();
+            //dd($viewHistory);
+            if (!empty($viewHistory)) {
+                $viewHistory->created_at = now();
+                $viewHistory->save();
+            } else {
+                $viewHistory = new ViewHistory();
+                $viewHistory->user_id = auth()->user()->id;
+                $viewHistory->product_id = $p_id;
+                $viewHistory->save();
+            }
+        }
     }
 
     public function productDetail($p_id, $p_slug)
@@ -34,6 +57,9 @@ class ShopController extends Controller
 
         $product->total_views += 1;
         $product->save();
+
+        $this->updateViewHistory($p_id);
+
 
         $data = [
             'product' => $product,

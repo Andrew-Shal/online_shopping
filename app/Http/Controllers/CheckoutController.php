@@ -65,6 +65,7 @@ class CheckoutController extends Controller
         }
 
         //banking transaction occurs here
+        //not implemented yet!
         try {
             $isChargeSuccessful = true; //set to false to throw exception
 

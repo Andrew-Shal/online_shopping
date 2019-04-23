@@ -123,4 +123,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne('App\Billing');
     }
+
+    public function viewHistory()
+    {
+        return $this->hasMany('App\ViewHistory');
+    }
 }
