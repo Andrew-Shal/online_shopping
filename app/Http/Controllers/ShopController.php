@@ -17,6 +17,7 @@ class ShopController extends Controller
 
         $recommender = new Recommender();
         $recommendations = $recommender->recommendationOnRatingsForUser(Rating::all(), User::inRandomOrder()->first()->id);
+        //$recommendations = $recommender->recommendationOnRatingsForUser(Rating::all(), User::find(auth()->user()->id));
 
         $landingData = array(
             'dynamic-content' => 'you can pass a variable here, remove the quotes and add the $',

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
+use App\Jobs\GenerateRecommendations;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -35,5 +38,14 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    public function authenticated(Request $request, User $user)
+    {
+        //have to pass in last login before user is updated else 
+        //will give incorrect result due to being added to a queue
+        //that might process data at a later stime
+        GenerateRecommendations::dispatch($user, $user->last_login);
     }
 }

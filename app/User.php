@@ -128,4 +128,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\ViewHistory');
     }
+
+    public function recommendationOnRating()
+    {
+        return $this->hasOne('App\RecommendationOnRating');
+    }
 }
