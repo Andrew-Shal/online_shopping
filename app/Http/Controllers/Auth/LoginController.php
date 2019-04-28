@@ -43,9 +43,6 @@ class LoginController extends Controller
 
     public function authenticated(Request $request, User $user)
     {
-        //have to pass in last login before user is updated else 
-        //will give incorrect result due to being added to a queue
-        //that might process data at a later stime
         GenerateRecommendations::dispatch($user, $user->last_login);
     }
 }

@@ -4,7 +4,7 @@ use App\Billing;
 use Faker\Generator as Faker;
 
 $factory->define(Billing::class, function (Faker $faker) {
-    /*return [
+    return [
         'billing_email' => $faker->safeEmail,
         'billing_name' => $faker->name,
         'billing_address' => $faker->address,
@@ -12,10 +12,10 @@ $factory->define(Billing::class, function (Faker $faker) {
         'billing_province' => $faker->country,
         'billing_phone' => $faker->phoneNumber,
         'user_id' => 2
-    ];*/
+    ];
 
 
-    return [
+    /*return [
         'billing_email' => 'shalandrew97@gmail.com',
         'billing_name' => 'andrew shal',
         'billing_address' => 'san martin',
@@ -23,5 +23,5 @@ $factory->define(Billing::class, function (Faker $faker) {
         'billing_province' => 'belize',
         'billing_phone' => 6244690,
         //'user_id' => 1
-    ];
+    ];*/
 });

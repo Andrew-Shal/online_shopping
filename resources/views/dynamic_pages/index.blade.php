@@ -3,7 +3,7 @@
 @section('content')
 <pre>
   <?php
-  dd($forUser,$recommendations,$matrix);
+  dd($recommendations);
   ?>
 </pre>
 @endsection

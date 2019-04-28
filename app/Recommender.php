@@ -19,9 +19,9 @@ class Recommender
     $this->forUser = $user_id;
 
     foreach ($ratings as $rating) {
-      //$rating_id = 'p' . (string)$rating->product->id;
-      //$this->matrix[$rating->user->id][$rating_id] = $rating->rating;
-      $this->matrix[$rating->user->id][$rating->product->name] = $rating->rating;
+      $rating_id = 'p' . (string)$rating->product->id;
+      $this->matrix[$rating->user->id][$rating_id] = $rating->rating;
+      //$this->matrix[$rating->user->id][$rating->product->name] = $rating->rating;
     };
 
     return $this->getRecommendation($this->forUser);
@@ -31,9 +31,6 @@ class Recommender
   {
     return $this->matrix;
   }
-
-
-
 
   /**
    * 

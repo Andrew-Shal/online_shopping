@@ -7,24 +7,26 @@ use App\Rating;
 use App\User;
 use App\ViewHistory;
 use App\Recommender;
+use App\RecommendationOnRating;
 use Illuminate\Http\Request;
+use function Opis\Closure\unserialize;
 
 class ShopController extends Controller
 {
     //
     public function index()
     {
+        $recommendations = null;
+        if (auth()->user()) {
+            $user = User::find(auth()->user()->id);
 
-        $recommender = new Recommender();
-        $recommendations = $recommender->recommendationOnRatingsForUser(Rating::all(), User::inRandomOrder()->first()->id);
-        //$recommendations = $recommender->recommendationOnRatingsForUser(Rating::all(), User::find(auth()->user()->id));
+            $recommendations = $user->recommendationOnRating ?  $user->recommendationOnRating->recommendation_on_ratings : null;
+            $recommendations = unserialize($recommendations);
+        }
 
         $landingData = array(
             'dynamic-content' => 'you can pass a variable here, remove the quotes and add the $',
-            'recommeneded' => ['we', 'can', 'pass', 'an', 'array', 'here'],
             'recommendations' => $recommendations,
-            'matrix' => $recommender->getMatrix(),
-            'forUser' => $recommender->forUser
         );
 
 

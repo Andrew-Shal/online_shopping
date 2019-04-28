@@ -33,9 +33,9 @@ class OrderPlaced extends Mailable
     public function build()
     {
 
-        return $this->to($this->order->billing_email, $this->order->billing_name)
-            ->bcc('test@onlineshopping.com')
-            ->subject('Order from Online Shopping Center')
+        return $this->to($this->order->billing_email, $this->order->billing_name)->from('accounts@bzhomerentals.com', env('APP_NAME', 'online shopping'))
+            ->bcc('accounts@bzhomerentals.com')
+            ->subject('Order from Online Shopping')
             ->markdown('emails.orders.placed');
     }
 }

@@ -1,0 +1,18 @@
+/* ====== Footer ====== */
+.footer {
+    background: #b72973;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 15px 0;
+    bottom: 0;
+    width: 100%;
+    position: inherit;
+    a {
+        color: #fff;
+        &:hover {
+            color: #d4d4d4;
+        }
+    }
+    .fa-heart {
+        color: #fff;
+    }
+}
