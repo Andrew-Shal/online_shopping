@@ -17,6 +17,9 @@
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" id="recommend-tab" data-toggle="tab" href="#recommend" role="tab" aria-controls="recommend" aria-selected="false">Recommendations</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
           </li>
           <li class="nav-item">
@@ -40,6 +43,16 @@
               </div>  <!--col-md-5-->
             </div>  <!--row-->
           </div>  <!--#profile-->
+
+          <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
+              <div class="row justify-content-center">
+                  <div class="col-md-10">
+                    <h2><i class="fa fa-user pr-3"></i>Recommendations for you</h3>
+                    <hr>
+                    @include('dynamic_pages.recommendations.index')
+                  </div>   <!--col-md-10--> 
+              </div>  <!--row-->
+          </div>  <!--#orders-->
           
           <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
               <div class="row justify-content-center">
@@ -50,6 +63,7 @@
                   </div>   <!--col-md-10--> 
               </div>  <!--row-->
           </div>  <!--#orders-->
+          
           <div class="tab-pane fade" id="billing" role="tabpanel" aria-labelledby="billing-tab">
               <div class="row justify-content-center">
                   <div class="col-md-5">
@@ -74,6 +88,7 @@
                    </div>  <!--col-md-5-->
                    
                    @endif
+                   
               </div>  <!--row-->
           </div>  <!--#billing-->
         </div>

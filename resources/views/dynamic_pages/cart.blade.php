@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+
+<!-- Magnific Popup core CSS file -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+
+<!-- Magnific Popup core JS file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  $('.image-link').magnificPopup({type:'image'});
+});
+</script>
+
 <div class="row justify-content-center page-wrapper">
     <div class="col-md-10">
   <h2><i class="fa fa-shopping-cart mr-3"></i>Shopping Cart</h2>
@@ -42,7 +55,7 @@
                 <th scope="row">{{$product['item']->id}}</th>
                 <td> 
                     <div class="product_featured_photo">
-                        <img src="{{asset('/storage/users/'.$product['item']->user->id.' /product_images/'. $product['item']->featured_photo)}}"/>
+                        <a href="{{asset('/storage/users/'.$product['item']->user->id.'/product_images/'. $product['item']->featured_photo)}}" class="image-link"><img src="{{asset('/storage/users/'.$product['item']->user->id.'/product_images/'. $product['item']->featured_photo)}}"/></a>
                     </div>
                 </td>
 

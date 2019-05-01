@@ -53,7 +53,7 @@ class RatingController extends Controller
 
         $this->validate($request, [
             'rating' => 'required',
-            'review' => 'nullable',
+            'review' => 'required',
             'p_id' => 'required'
         ]);
 

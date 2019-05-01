@@ -20,13 +20,15 @@ use Faker\Generator as Faker;
 //use this to seed db with user,products,billing,posts
 //enter in tinker and run
 
-/* factory(App\User::class, 100)->create()->each(function($u) {
+/* factory(App\User::class, 20)->create()->each(function($u) {
     $u->billing()
         ->save( factory(App\Billing::class)->make() );
     $u->products()
-        ->saveMany(factory(App\Product::class,20)->make());
+        ->saveMany(factory(App\Product::class,10)->make());
     $u->posts()
-        ->saveMany(factory(App\Post::class,15)->make());
+        ->saveMany(factory(App\Post::class,5)->make());
+    $u->ratings()
+        ->saveMany(factory(App\Rating::class,20)->make());
 }); */
 
 $factory->define(User::class, function (Faker $faker) {

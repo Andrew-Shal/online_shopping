@@ -41,23 +41,26 @@ class GenerateRecommendations implements ShouldQueue
     {
 
         //
+
         if (count($this->user->ratings) > 0) {
 
             if (!is_null($this->last_login)) {
 
+                //we generate recommendations every minute after login offset is one minute, we can set this to 24 hrs
                 $userLastLogin = Carbon::parse($this->last_login);
-                $lastLoginOffset = $userLastLogin->addHours(12); //addMinutes(5); //(24);
+                $lastLoginOffset = $userLastLogin->addMinutes(1); //addHours(12);
+
 
                 $recommender = null;
                 $recommendations = null;
 
                 if ($lastLoginOffset->lt(now())) {
+
                     //generate recommendation
                     $recommender = new Recommender();
                     $recommendations = $recommender->recommendationOnRatingsForUser(Rating::all(), $this->user->id);
 
                     $serializeData = serialize($recommendations);
-
                     //add or update to recommendations table
                     $record = $this->user->recommendationOnRating()->firstOrCreate(['user_id' => $this->user->id]);
 

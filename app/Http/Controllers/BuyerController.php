@@ -22,9 +22,30 @@ class BuyerController extends Controller
 
         $billingInfo = $user->billing;
 
+        // get recommended products
+        $recommendations = null;
+
+        $recommendations = $user->recommendationOnRating ?  $user->recommendationOnRating->recommendation_on_ratings : null;
+        $recommendations = unserialize($recommendations);
+
+        $products = array();
+        if ($recommendations) {
+            foreach ($recommendations as $key => $recommended_product) {
+
+                $product = Product::find(trim($key, 'p'));
+                if ($product) {
+                    array_push($products, $product);
+                }
+            }
+            // end of recommended products
+
+        }
+
+
         $data = [
             'user' => $user,
-            'billingInfo' => $billingInfo
+            'billingInfo' => $billingInfo,
+            'products' => $products
         ];
 
         return view('dynamic_pages.buyer.index')->with($data);

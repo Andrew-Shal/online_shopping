@@ -19,14 +19,16 @@ class PagesController extends Controller
             $user = User::find(auth()->user()->id);
 
             $recommendations = $user->recommendationOnRating ?  $user->recommendationOnRating->recommendation_on_ratings : null;
-            $recommendations = unserialize($recommendations);
         }
 
+        $recommendations = unserialize($recommendations);
         $products = array();
-        foreach ($recommendations as $key => $recommended_product) {
+        if ($recommendations) {
+            foreach ($recommendations as $key => $recommended_product) {
 
-            $product = Product::find(trim($key, 'p'));
-            array_push($products, $product);
+                $product = Product::find(trim($key, 'p'));
+                array_push($products, $product);
+            }
         }
         // end of recommended products
 
