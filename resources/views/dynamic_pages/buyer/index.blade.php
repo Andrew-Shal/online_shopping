@@ -55,6 +55,7 @@
                   <div class="col-md-5">
                     <h2><i class="fa fa-user pr-3"></i>Billing Information</h3>
                     <hr>
+                    @if($billingInfo != null)
                     @include('dynamic_pages.billings.index')
                   </div>   <!--col-md-5--> 
                     <div class="col-md-5">
@@ -62,6 +63,17 @@
                         <hr>
                       @include('dynamic_pages.billings.edit',['formAction' => 'buyer.billing.update'])
                    </div>  <!--col-md-5-->
+                   @else
+                   
+                    <p>you don't have any billing information</p>
+                  </div>   <!--col-md-5--> 
+                    <div class="col-md-5">
+                      <h2><i class="fa fa-user pr-3"></i>Create Billing Information</h3>
+                        <hr>
+                      @include('dynamic_pages.billings.create')
+                   </div>  <!--col-md-5-->
+                   
+                   @endif
               </div>  <!--row-->
           </div>  <!--#billing-->
         </div>

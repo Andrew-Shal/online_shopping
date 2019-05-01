@@ -7,7 +7,11 @@
       <div class="col-md-10">
         <h2><span><i class="fas fa-user pr-3"></i></span>My Profile</h2>
         <hr>              
-        @include('dynamic_pages.billings.index') 
+        @if($billingInfo != null)
+            @include('dynamic_pages.billings.index')
+        @else
+            <p> you don't have any billing information yet. <a href="/dashboard#billing"> add here</a></p>
+        @endif
       </div>
   </div>
 </div>

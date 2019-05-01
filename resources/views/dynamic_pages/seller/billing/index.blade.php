@@ -16,6 +16,9 @@
 
         @include('inc.messages')
         <hr>
+        <?php
+        $billingInfo = $billingDetails;
+        ?>
           @include('dynamic_pages.billings.index')
       </div>
   
