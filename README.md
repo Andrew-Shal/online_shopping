@@ -1,16 +1,60 @@
 # Online Shopping
 
+to see recommendations, you have to add ratings to products,
+the more you add, the more accurate the results will be. the recommender is based on
+the distance in comparison between your ratings and other users that have added ratings to
+similar products as you.
+
+the recommendations are generated per user based on their login time,
+If a user's last login time is less than (n) when the user currently logs in,
+we add a job to the queue to generate recommendations.
+
+The queue is stored in th database under a table called jobs.
+when the server is free, it runs jobs that are placed in the queue.
+
+A scheduler runs all the jobs in the queue,
+
+(n) is the offset that can be set to run jobs,
+for example, if you go to App/Console/Kernel.php
+
+you will find the schedule function
+
+     protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('queue:work --stop-when-empty')
+            ->everyMinute()->withoutOverlapping();
+    }
+
+
+    here, we have set the scheduler to run the queue worker every minute when
+    there's no records in the database table "jobs"
+
+    Where are recommendations generated?
+
+    navigate to :App/Jobs/GenerateRecommendations.php
+
+    here in the handle function is where we genereate recommendations
+
+    How and where is this  GenerateRecommendations called?
+
+    we use dispatch, (GenerateRecommendations uses the trait Dispatchable)
+
+    if you navigate to App/Http/Controllers/Auth/Login.php
+
+    you will find the following
+
+    GenerateRecommendations::dispatch($user, $user->last_login);
+
+    in a function called authenticated
+
+    authenticated is called whenever a user sucessfully logs in.
+    and we dispatch GenerateRecommendations with args User::class(current user logged in) and the users last login value(a field in the db users table)
+
 ##server requirements:
 
 1. PHP >= 7.1.3
 1. OpenSSL PHP Extension
-1. PDO PHP Extension
-1. Mbstring PHP Extension
-1. Tokenizer PHP Extension
-1. XML PHP Extension
-1. Ctype PHP Extension
-1. JSON PHP Extension
-1. BCMath PHP Extension
+1. xampp
 
 ## Installation
 
