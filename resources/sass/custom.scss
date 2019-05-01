@@ -475,3 +475,9 @@
         }
     }
 }
+
+#app.cart div#main,
+.thankyou div#main {
+    height: 100vh;
+    margin-bottom: -40px;
+}

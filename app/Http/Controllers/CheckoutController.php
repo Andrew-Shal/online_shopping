@@ -23,7 +23,7 @@ class CheckoutController extends Controller
     {
 
         if (!Session::get('cart')) {
-            return redirect()->route('product.index');
+            return redirect()->route('shop.product.list');
         }
 
         $cart = Session::get('cart');

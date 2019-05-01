@@ -97,14 +97,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'seller.
         Route::resource('/product', 'ProductController');                                       //seller's product resource CRUD
         Route::get('/product/{id}/{slug}', 'ProductController@show')->name('product.id_slug');  //seller's {resource} show
         Route::resource('/posts', 'PostController');                                            //seller's {resource} CRUD
-        Route::get('/billing', 'BillingController@index')->name('billing.index');               //get billing information
-        Route::get('/billing/edit', 'BillingController@edit')->name('billing.edit');            //get edit page for billing information
-        Route::put('/billing/edit', 'BillingController@update')->name('billing.update');        //update billing information
-        Route::get('/myprofile', 'MyProfileController@index')->name('profile.index');           //
-        Route::get('/myprofile/edit', 'MyProfileController@edit')->name('profile.edit');        //
-        Route::put('/myprofile', 'MyProfileController@update')->name('profile.update');         //
-        Route::get('/preferences', 'PreferencesController@edit')->name('preference.edit');      //
-        Route::put('/preferences', 'PreferencesController@update')->name('preference.update');  //
+        Route::get('/billing', 'BillingController@index_seller')->name('seller.billing.index');               //get billing information
+        Route::get('/billing/edit', 'BillingController@edit_seller')->name('seller.billing.edit');            //get edit page for billing information
+        Route::put('/billing/edit', 'BillingController@update')->name('seller.billing.update');        //update billing information
+        Route::get('/myprofile', 'MyProfileController@index_seller')->name('seller.profile.index');           //
+        Route::get('/myprofile/edit', 'MyProfileController@edit_seller')->name('seller.profile.edit');        //
+        Route::put('/myprofile', 'MyProfileController@update')->name('seller.profile.update');         //
     });
 });
 
@@ -121,9 +119,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'seller.
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     //access    /dashboard/{resource}
 
-    Route::get('/', 'BuyerController@index')->name('buyer_home');                                       //get buyer dashboard
+    Route::get('/', 'BuyerController@index')->name('buyer_home');
+    Route::get('/myprofile', 'MyProfileController@index_buyer')->name('buyer.profile.index');
+    Route::get('/myprofile/edit', 'MyProfileController@edit_buyer')->name('buyer.profile.edit');
+    Route::put('/myprofile', 'MyProfileController@update')->name('buyer.profile.update');
     Route::get('/sellers', 'PagesController@enabling_seller_panel')->name('about.seller.enable');       //static page, about sellers panel
     Route::get('/billing', 'PagesController@enabling_seller_panel')->name('about.seller.enable');       //static page, about sellers panel
+    Route::get('/billing', 'BillingController@index_buyer')->name('buyer.billing.index');               //get billing information
+    Route::get('/billing/edit', 'BillingController@edit_buyer')->name('buyer.billing.edit');            //get edit page for billing information
+    Route::put('/billing/edit', 'BillingController@update')->name('buyer.billing.update');        //update billing information
 });
 
 

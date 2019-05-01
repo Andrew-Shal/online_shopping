@@ -14,6 +14,8 @@
       <div class="container-fluid">
         <h2><span><i class="fa fa-truck pr-3"></span></i>Add a Product</h2>
         <hr>
+
+        @include('inc.messages')
         <!--   -->
         <div class="row">
           <div class="col-md-10 pl-5">

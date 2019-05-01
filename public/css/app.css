@@ -515,6 +515,12 @@
   border: 1px solid #bb2774;
 }
 
+#app.cart div#main,
+.thankyou div#main {
+  height: 100vh;
+  margin-bottom: -40px;
+}
+
 body {
   font-size: 0.9rem;
 }
@@ -546,6 +552,28 @@ body {
 #breadcrumb a i {
   margin-right: 5px;
   opacity: 0.6;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.hover,
+a.btn-primary:hover,
+a.btn-primary:focus,
+a.btn-primary:active,
+a.btn-primary.active,
+a.btn-primary.hover {
+  background: #b3025d;
+  color: #fff !important;
+  border: 1px solid #bb2774;
+}
+
+.btn-primary,
+a.btn-primary {
+  background: #df308b;
+  border: 1px solid #bb2774;
+  color: #fff !important;
 }
 
 /*----------------show sidebar button----------------*/

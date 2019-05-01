@@ -108,10 +108,10 @@
           <div class="sidebar-submenu">
             <ul>
               <li>
-                <a href="/admin/dashboard/billing">View</a>
+                <a href="{{route('seller.billing.index')}}">View</a>
               </li>
               <li>
-                <a href="/admin/dashboard/billing/edit">Edit</a>
+                <a href="{{route('seller.billing.edit')}}">Edit</a>
               </li>
             </ul>
           </div>
@@ -124,13 +124,10 @@
           <div class="sidebar-submenu">
             <ul>
               <li>
-                <a href="/admin/dashboard/myprofile">My Profile</a>
+                <a href="{{route('seller.profile.index')}}">My Profile</a>
               </li>
               <li>
-                <a href="/admin/dashboard/myprofile/edit">Update Profile</a>
-              </li>
-              <li>
-                <a href="/admin/dashboard/preferences">Preferences</a>
+                <a href="{{route('seller.profile.edit')}}">Update Profile</a>
               </li>
             </ul>
           </div>

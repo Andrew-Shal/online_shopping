@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-
-  <h2>Shopping Cart</h2>
+<div class="row justify-content-center page-wrapper">
+    <div class="col-md-10">
+  <h2><i class="fa fa-shopping-cart mr-3"></i>Shopping Cart</h2>
+  <hr>
 
     @if (session()->has('success_message'))
         <div class="alert alert-success">
@@ -27,6 +29,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">id</th>
+                    <th scope="col">featured photo</th>
                     <th scope="col">name</th>
                     <th scope="col">qty</th>
                     <th scope="col">item price</th>
@@ -37,6 +40,12 @@
         @foreach($products as $product)
             <tr>
                 <th scope="row">{{$product['item']->id}}</th>
+                <td> 
+                    <div class="product_featured_photo">
+                        <img src="{{asset('/storage/users/'.$product['item']->user->id.' /product_images/'. $product['item']->featured_photo)}}"/>
+                    </div>
+                </td>
+
                 <td>{{$product['item']->name}}</td>
                 <td>
                     <form action="{{route('cart.updateQty')}}" method="POST">
@@ -44,7 +53,7 @@
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{$product['item']->id}}">
                     <input type="hidden" name="_method" value="PATCH">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                     </form>
                 </td>
                 <td>${{$product['item']->current_price}}</td>
@@ -78,5 +87,24 @@
                 <a href="{{route('checkout.index')}}" type="btn" class="btn btn-success">Checkout</a>
         </div>
     @endif
+    </div>
+</div>
+
+<style>
+    .product_featured_photo{
+        max-height:100px;
+        min-height:100px;
+        height:100px;
+        width:100px;
+        overflow:hidden;
+    }
+
+    .product_featured_photo img{
+        width:100%;
+    }
+    .page-wrapper{
+        padding-top:40px;
+    }
+</style>
 
 @endsection

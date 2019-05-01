@@ -18,6 +18,7 @@ class MyProfileController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
     protected function validator(Request $data)
     {
         $messages = ['password.regex' => "Your password must contain 1 lower case character 1 upper case character one number."];
@@ -40,7 +41,7 @@ class MyProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index_seller()
     {
         //
         $user_id = auth()->user()->id;
@@ -50,18 +51,48 @@ class MyProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display a listing of the resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function index_buyer()
     {
         //
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
+        return view('dynamic_pages.buyer.profile.index')->with('user', $user);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_seller()
+    {
+        //
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+
         return view('dynamic_pages.seller.profile.edit')->with('user', $user);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_buyer()
+    {
+        //
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        return view('dynamic_pages.buyer.profile.edit')->with('user', $user);
     }
 
     /**
@@ -78,7 +109,6 @@ class MyProfileController extends Controller
 
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-
 
 
         if (!Hash::check($request->current_password, auth()->user()->getAuthPassword())) {
@@ -100,7 +130,9 @@ class MyProfileController extends Controller
 
         $user->save();
 
+
         Auth::logout();
+
 
         return  redirect('/login')->with('success', 'Account Information was updated, please log back in');
     }

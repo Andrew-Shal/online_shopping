@@ -9,22 +9,14 @@
   <main class="page-content {{request()->segment(2)}} {{request()->segment(3)}} {{request()->segment(4)}}">
       @include('dynamic_pages.seller.components.navbar')
 
-      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('profile.index')}}" class="current">profile</a></div>
+      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('seller.profile.index')}}" class="current">profile</a></div>
 
       @include('inc.messages')
       <div class="container-fluid">
         <h2><span><i class="fas fa-user pr-3"></i></span>My Profile</h2>
         <hr>
         <!--   -->
-        <div class="row">
-            <p><b>first name: </b>{{$user->first_name}}<br/>
-            <b>last name: </b>{{$user->last_name}}<br>
-            <b>email: </b>{{$user->email}}<br>
-            <b>country: </b>{{$user->cust_country}}<br>
-            <b>street: </b>{{$user->cust_street}}<br>
-            <b>phone number: </b>{{$user->phone_number}}<br>
-            <b>encrypted password: </b>{{auth()->user()->getAuthPassword()}}<br></p>
-        </div>
+          @include('dynamic_pages.myprofile.index') 
       </div>
   
     </main>

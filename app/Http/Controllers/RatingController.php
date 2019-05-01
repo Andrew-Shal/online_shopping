@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Rating;
 use Illuminate\Http\Request;
 
@@ -41,6 +42,15 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
+
+        if (!auth()->user()) return redirect()->back()->with('error', 'you need to login before adding a rating');
+
+        $user = User::find(auth()->user()->id);
+
+        $ratings = Rating::where('user_id', $user->id)->where('product_id', $request->input('p_id'))->get();
+
+        if (count($ratings) > 0) return redirect()->back()->with('error', 'you can only add one rating to a product');
+
         $this->validate($request, [
             'rating' => 'required',
             'review' => 'nullable',
@@ -55,7 +65,7 @@ class RatingController extends Controller
 
         $rating->save();
 
-        return redirect('dashboard/')->with('success_message', 'Ratings successfully added!');
+        return redirect()->back()->with('success', 'Ratings successfully added!');
     }
 
     /**

@@ -29,8 +29,7 @@ class ShopController extends Controller
             'recommendations' => $recommendations,
         );
 
-
-        return view('dynamic_pages.index')->with($landingData);
+        return view('dynamic_pages.index');
     }
 
     protected function updateViewHistory($p_id)
@@ -51,6 +50,12 @@ class ShopController extends Controller
         }
     }
 
+    protected function determineFeaturedPhoto($userId, $productName)
+    {
+        return $productName == 'noimage_placeholder.jpg' ?
+            '/storage/users/default/product_images/' . $productName : '/storage/users/' . $userId . '/product_images/' . $productName;
+    }
+
     public function productDetail($p_id, $p_slug)
     {
         //
@@ -63,10 +68,14 @@ class ShopController extends Controller
 
         $this->updateViewHistory($p_id);
 
+        $featured_photo_link = $this->determineFeaturedPhoto($product->user->id, $product->featured_photo);
+        $avg_rating = $this->generateAvgRating($p_id);
 
         $data = [
             'product' => $product,
-            'product_photos' => $product->productPhotos
+            'product_photos' => $product->productPhotos,
+            'featured_photo_link' => $featured_photo_link,
+            'avg_rating' => $avg_rating,
         ];
 
         return view('dynamic_pages.productDetail')->with($data);
@@ -75,7 +84,7 @@ class ShopController extends Controller
     public function productList()
     {
         $products = Product::where('is_active', 1)
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->paginate(20);
         return view('dynamic_pages.productList')->with('products', $products);
     }
@@ -92,5 +101,21 @@ class ShopController extends Controller
         if (count($products) < 1) return redirect()->route('shop.product.list')->with('error', ('no product was found with query: ' . $search));
 
         return view('dynamic_pages.productSearch')->with('products', $products);
+    }
+
+    protected function generateAvgRating($p_id)
+    {
+        $rating_per_products = Rating::where('product_id', $p_id)->get();
+
+        $product_rating_count = count($rating_per_products);
+
+        if ($product_rating_count < 1) return 0;
+
+        $ratingTotal = 0;
+        foreach ($rating_per_products as $rating) {
+            $ratingTotal += $rating->rating;
+        }
+
+        return round($ratingTotal /  $product_rating_count, 1);
     }
 }

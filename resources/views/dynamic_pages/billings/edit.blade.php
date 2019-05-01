@@ -1,22 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-
-
-<div class="page-wrapper chiller-theme toggled">
-  @include('components.sidebar')
-  
-  <main class="page-content {{request()->segment(2)}} {{request()->segment(3)}} {{request()->segment(4)}}">
-      @include('dynamic_pages.seller.components.navbar')
-
-      <div id="breadcrumb"> <a href="{{route('seller_home')}}" title="Go to Home"><i class="fa fa-home"></i> Home</a><a href="{{route('billing.index')}}">Billing Information</a><a href="{{route('billing.edit')}}" class="current">edit</a></div>
-      
-      <div class="container-fluid">
-        <h2><span><i class="fab fa-google-wallet pr-3"></i></span>Update Billing Information</h2>
-        <hr>
-        <!--   -->
-        <div class="row">
-            {!! Form::open(['action' => 'BillingController@update', 'method' => 'POST']) !!}
+{!! Form::open(['route' => $formAction, 'method' => 'POST']) !!}
             @csrf
               <div class="form-group">
                 {{Form::label('billing_name', 'Billing Name')}}
@@ -50,11 +32,4 @@
               
                 {{Form::hidden('_method','PUT')}}
                 {{Form::submit('Update',['class' => 'btn btn-primary'])}}
-            {!! Form::close() !!}
-        </div>
-      </div>
-  
-    </main>
-    <!-- page-content" -->
-  </div>  
-@endsection
+{!! Form::close() !!}

@@ -1,74 +1,72 @@
-
-
-
 @extends('layouts.app')
 
 @section('content')
+<div class="contanier">
+  <div class="row">
+    <div class="col-md-12">
+        <h2><span><i class="fas fa-user pr-3"></i></span>My Dashboard</h2>
+        <hr>   
 
-<h1>Buyer Panel</h1>
-<hr>
-<div class="row justify-content-center">
-  @if(count($products) > 0)
-    @foreach($products as $product)
-    <div class="card mr-4 mb-5" style="width: 18rem;">
-          @if($product->featured_photo == 'noimage_placeholder.jpg')
-          <a href="{{route('shop.product.detail',[$product->id,$product->slug])}}"><img class="card-img-top" src="/storage/users/default/product_images/{{$product->featured_photo}}" alt="Card image cap"></a>
-          @else
-          <a href="{{route('shop.product.detail',[$product->id,$product->slug])}}"><img class="card-img-top" src="/storage/users/{{$product->user_id}}/product_images/{{$product->featured_photo}}" alt="Card image cap"></a>
-          @endif
-          <div class="card-body">
-            <h5 class="card-title text-center">${{$product->current_price}}</h5>
-            <div class="card-footer-info">
-            <h5 class="card-title">{{$product->name}}</h5>
+        @include('inc.messages')
+      
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="billing-tab" data-toggle="tab" href="#billing" role="tab" aria-controls="orders" aria-selected="false">Billing</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
 
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-              @if($product->qty == 0)
-                <div class="out-of-stock">
-                    <div class="inner">
-                        Out Of Stock
-                    </div>
-                </div>
-              @else
-              <p class="card-text">{{$product->qty}} in stock</p>
-                <form id="addToCart" action="{{ route('cart.store') }}" method="POST">
-                  {{ csrf_field() }}
-                  <input type="hidden" name="id" value="{{$product->id}}">
-                  <!--<a href="/rating/{{$product->id}}"><i class="fa fa-plus-square"></i>Rate</a>-->
-                </form>
-                <a href="{{ route('cart.store') }}" onclick="event.preventDefault();$(this).parent().children('form#addToCart').submit();"><i class="fa fa-plus-square mr-2"></i>Add to Cart</a>
-
-                  <a href="{{route('shop.product.detail',[$product->id,$product->slug])}}" class="float-right"><i class="fa fa-plus-square mr-2"></i>View Product</a>
-              @endif
-              </div>
-          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="row justify-content-center">
+              <div class="col-md-5">
+                <h2><i class="fa fa-user pr-3"></i>Account Information</h3>
+                <hr>
+                @include('dynamic_pages.myprofile.index')
+              </div>   <!--col-md-5--> 
+              <div class="col-md-5">
+                  <h2><i class="fa fa-user pr-3"></i>Edit Account Information</h3>
+                    <hr>
+                  @include('dynamic_pages.myprofile.edit',['formAction' => 'buyer.profile.update'])
+              </div>  <!--col-md-5-->
+            </div>  <!--row-->
+          </div>  <!--#profile-->
+          
+          <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+              <div class="row justify-content-center">
+                  <div class="col-md-10">
+                    <h2><i class="fa fa-user pr-3"></i>Order History</h3>
+                    <hr>
+                    @include('dynamic_pages.myorders.index')
+                  </div>   <!--col-md-10--> 
+              </div>  <!--row-->
+          </div>  <!--#orders-->
+          <div class="tab-pane fade" id="billing" role="tabpanel" aria-labelledby="billing-tab">
+              <div class="row justify-content-center">
+                  <div class="col-md-5">
+                    <h2><i class="fa fa-user pr-3"></i>Billing Information</h3>
+                    <hr>
+                    @include('dynamic_pages.billings.index')
+                  </div>   <!--col-md-5--> 
+                    <div class="col-md-5">
+                      <h2><i class="fa fa-user pr-3"></i>Edit Billing Information</h3>
+                        <hr>
+                      @include('dynamic_pages.billings.edit',['formAction' => 'buyer.billing.update'])
+                   </div>  <!--col-md-5-->
+              </div>  <!--row-->
+          </div>  <!--#billing-->
         </div>
-    @endforeach
-    {{$products->links()}}
-  @else
-    <p>Unfortunately, we don't have any users who have added any products for sale</p>
-  @endif
+    </div>
+  </div>
 </div>
 
 @endsection
-
-@section('scripts')
-<style>
-  .card-footer-info{
-    padding-left:10px;
-  }
-
-  .card .card-footer-info .rating i{
-    color:#dec930;
-  }
-</style>
-@endsection
-
-
-
-

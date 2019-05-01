@@ -49,9 +49,9 @@ class ProductController extends Controller
             'featured_photo' => 'nullable|image|max:1999',
             'filename' => 'nullable',
             'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'description' => 'string|nullable',
-            'condition' => 'string|nullable',
-            'return_policy' => 'string|nullable|'
+            'description' => 'string|required',
+            'condition' => 'string|required',
+            'return_policy' => 'string|required'
         ]);
     }
 

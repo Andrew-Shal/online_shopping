@@ -19,14 +19,23 @@ class BillingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index_buyer()
     {
         //
 
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $billingDetails = $user->billing;
-        return view('dynamic_pages.billings.index')->with('billingDetails', $billingDetails);
+        return view('dynamic_pages.buyer.billing.index')->with('billingDetails', $billingDetails);
+    }
+    public function index_seller()
+    {
+        //
+
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $billingDetails = $user->billing;
+        return view('dynamic_pages.seller.billing.index')->with('billingDetails', $billingDetails);
     }
 
     /**
@@ -93,23 +102,12 @@ class BillingController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit_buyer(Request $request)
     {
 
         $user_id = auth()->user()->id;
@@ -117,7 +115,17 @@ class BillingController extends Controller
 
         $billingInfo = $user->billing;
 
-        return view('dynamic_pages.billings.edit')->with('billingInfo', $billingInfo);
+        return view('dynamic_pages.buyer.billing.edit')->with('billingInfo', $billingInfo);
+    }
+    public function edit_seller(Request $request)
+    {
+
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        $billingInfo = $user->billing;
+
+        return view('dynamic_pages.seller.billing.edit')->with('billingInfo', $billingInfo);
     }
 
     /**
@@ -146,7 +154,7 @@ class BillingController extends Controller
 
         $billingInfo->save();
 
-        return redirect('/admin/dashboard/billing')->with('success', 'Billing information successfully updated!');
+        return redirect()->back()->with('success', 'Billing information successfully updated!');
     }
 
     /**

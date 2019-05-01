@@ -12,14 +12,14 @@
     <!-- scripts -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    @yield('extra-header-scripts')
+    @yield('extra-scripts')
 
             
     <!-- Styles -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet">            
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @yield('extra-header-styles')
+    @yield('extra-styles')
 
 </head>
 
@@ -27,7 +27,6 @@
     <div id="app" class="{{request()->segment(1)}}">
         @if(request()->segment(1) != 'admin')@include('inc.navbar')@endif
         <div id="main" class="container-fluid">
-            @include('inc.messages')
             @yield('content')
         </div>
         @include('inc.globalFooter')

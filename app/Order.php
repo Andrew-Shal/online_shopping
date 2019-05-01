@@ -43,4 +43,8 @@ class Order extends Model
     {
         return $this->belongsToMany('App\Product')->withPivot('quantity');
     }
+    public function ordered_products()
+    {
+        return $this->hasMany('App\OrderProduct');
+    }
 }
