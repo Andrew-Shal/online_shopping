@@ -50,6 +50,17 @@ you will find the schedule function
     authenticated is called whenever a user sucessfully logs in.
     and we dispatch GenerateRecommendations with args User::class(current user logged in) and the users last login value(a field in the db users table)
 
+
+Site url: https://bzhomerentals.com/
+
+1. create an account and verify your email
+1. once verified, you will be redirected to the dashboard for buyers
+1. you can see several tabs here
+1. to get recommendations, you have to add ratings to some products, log out, log back in, the navigate to the recommendations tab in the buyers dashboard (https://bzhomerentals.com/dashboard#recommend)
+1. you can also see your recommendations on the landing page, that is if you have any recommendations.
+
+
+
 ##server requirements:
 
 1. PHP >= 7.1.3
