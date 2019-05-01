@@ -101,6 +101,20 @@ Site url: https://bzhomerentals.com/
 1. type in the url of the browser shopping.build/product
 1. products is the screen that shows items that is uploaded by the seller.
 
+
+* to populate db,
+
+you can use the factory to randomly add users, ratings, products, orders etc.
+how to do this?
+
+make sure sure you are in the online_shopping folder
+then run command `php artisan tinker`
+
+then you can use factory as is:
+
+`factory(App\User,1000)->create()` //this will create 1000 users
+`factory({classname},{optinal:amount to create})->{create: adds entry to db}`
+
 Copyright and licensing information
 The Laravel framework is open-source software licensed under the MIT license.
 
